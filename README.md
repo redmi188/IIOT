@@ -43,31 +43,21 @@ By energizing these coils in a specific sequence, the motor rotates step-by-step
 
 #### **Step Angle and Resolution**
 
-* Internal step angle = **5.625°**
+### Step Calculations
 
-* In half-step mode:
-  [
-  \frac{360°}{5.625°} = 64 \text{ steps}
-  ]
+- In half-step mode:  
+  360° / 5.625° = **64 steps**
 
-* In full-step mode:
-  [
-  64 / 2 = 32 \text{ steps}
-  ]
+- In full-step mode:  
+  64 / 2 = **32 steps**
 
 The motor includes an internal **gear reduction of 64:1**, meaning the output shaft rotates once when the internal motor rotates 64 times.
 
-Therefore:
+- Total steps per revolution:  
+  32 × 64 = **2048 steps**
 
-* Total steps per revolution =
-  [
-  32 \times 64 = 2048 \text{ steps}
-  ]
-
-* Step angle (output shaft) =
-  [
-  \frac{360°}{2048} \approx 0.18°/\text{step}
-  ]
+- Step angle (output shaft):  
+  360° / 2048 ≈ **0.18° per step**
 
 This high resolution allows **precise angular positioning**.
 
