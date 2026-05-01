@@ -1,0 +1,37 @@
+#include <DHT.h>   // Library for DHT sensor (handles communication)
+
+#define DHTPIN 2       // DHT11 data pin connected to Arduino digital pin 2
+#define DHTTYPE DHT11  // We are using DHT11 sensor (not DHT22)
+
+DHT dht(DHTPIN, DHTTYPE);  // Create sensor object
+
+float hum;   // Variable to store humidity value
+float temp;  // Variable to store temperature value
+
+void setup() {
+  Serial.begin(9600);  // Start serial communication at 9600 baud rate
+                       // Used to send data to Node-RED / Serial Monitor
+
+  dht.begin();         // Initialize DHT sensor
+}
+
+void loop() {
+
+  // Read humidity from sensor
+  hum = dht.readHumidity();
+
+  // Read temperature from sensor (in Celsius)
+  temp = dht.readTemperature();
+
+  // Convert float values into strings for serial transmission
+  String hum1 = String(hum);
+  String temp1 = String(temp);
+
+  // Send data in format: humidity,temperature
+  Serial.print(hum1);   // Send humidity
+  Serial.print(",");    // Separator (important for Node-RED parsing)
+  Serial.print(temp1);  // Send temperature
+
+  // Delay of 2 seconds (DHT11 is slow sensor)
+  delay(2000);
+}
