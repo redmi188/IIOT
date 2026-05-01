@@ -1,0 +1,37 @@
+import RPi.GPIO as GPIO  # Access Raspberry Pi hardware pins
+import time 		 # Control timing (wait, measure, delay)
+
+# Use BCM numbering (GPIO numbers, NOT physical pin numbers)
+GPIO.setmode(GPIO.BCM)
+
+# Define GPIO pins
+GPIO_PIR = 24       # GPIO24 (Pin 18 on board)
+GPIO_BUZZER = 20    # GPIO20 (Pin 38 on board)
+
+# Set pin directions
+GPIO.setup(GPIO_PIR, GPIO.IN)        # PIR sensor as input
+GPIO.setup(GPIO_BUZZER, GPIO.OUT)    # Buzzer as output
+
+# Give PIR time to stabilize
+print("Initializing PIR Sensor...")
+time.sleep(5)
+print("PIR Ready...\n")
+
+def motion_detected():
+    # Read PIR sensor value
+    return GPIO.input(GPIO_PIR)
+
+try:
+    while True:
+        if motion_detected():
+            print("Motion Detected")
+            GPIO.output(GPIO_BUZZER, True)   # Turn ON buzzer
+        else:
+            print("Motion Not Detected")
+            GPIO.output(GPIO_BUZZER, False)  # Turn OFF buzzer
+
+        time.sleep(0.5)
+
+# Clean up GPIO when program is stopped
+except KeyboardInterrupt:
+    GPIO.cleanup()
