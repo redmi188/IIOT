@@ -93,14 +93,18 @@ The DHT11 has two main sensing parts:
 
 
 
-*sudo apt update
-*sudo apt install python3-pip python3-venv libgpiod2
-*mkdir dht_project
-*cd dht_project
+## ⚙️ Setup Commands
 
-*python3 -m venv venv
-*source venv/bin/activate
-*(venv) pi@raspberrypi:~/dht_project $
+```bash
+sudo apt update
+sudo apt install python3-pip python3-venv libgpiod2
 
-*pip install adafruit-circuitpython-dht
-*pip install RPi.GPIO
+mkdir dht_project
+cd dht_project
+
+python3 -m venv venv
+source venv/bin/activate
+
+pip install adafruit-circuitpython-dht
+pip install RPi.GPIO
+```
