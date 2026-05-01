@@ -1,26 +1,93 @@
 # IIOT
 
-Top view of GPIO header on Raspberry Pi 4
 
-| Left (Odd Pins) | Pin | Pin | Right (Even Pins) |
-| --------------- | --- | --- | ----------------- |
-| 3.3V            | 1   | 2   | 5V                |
-| GPIO2 (SDA)     | 3   | 4   | 5V                |
-| GPIO3 (SCL)     | 5   | 6   | GND               |
-| GPIO4           | 7   | 8   | GPIO14 (TXD)      |
-| GND             | 9   | 10  | GPIO15 (RXD)      |
-| GPIO17          | 11  | 12  | GPIO18 (PWM)      |
-| GPIO27          | 13  | 14  | GND               |
-| GPIO22          | 15  | 16  | GPIO23            |
-| 3.3V            | 17  | 18  | GPIO24            |
-| GPIO10 (MOSI)   | 19  | 20  | GND               |
-| GPIO9 (MISO)    | 21  | 22  | GPIO25            |
-| GPIO11 (SCLK)   | 23  | 24  | GPIO8 (CE0)       |
-| GND             | 25  | 26  | GPIO7 (CE1)       |
-| GPIO0 (ID_SD)   | 27  | 28  | GPIO1 (ID_SC)     |
-| GPIO5           | 29  | 30  | GND               |
-| GPIO6           | 31  | 32  | GPIO12 (PWM)      |
-| GPIO13 (PWM)    | 33  | 34  | GND               |
-| GPIO19 (PWM)    | 35  | 36  | GPIO16            |
-| GPIO26          | 37  | 38  | GPIO20            |
-| GND             | 39  | 40  | GPIO21            |
+---
+
+#  **HC-SR04 Ultrasonic Sensor – Working Principle**
+
+##  **Concept / Theory**
+
+The HC-SR04 ultrasonic sensor measures distance using **sound waves**.
+
+### ⚙️ Working Steps:
+
+1. A **10 microsecond pulse** is sent to the **Trigger pin**
+2. Sensor sends **8 ultrasonic pulses at 40 kHz**
+3. These sound waves travel through air
+4. If an object is present:
+
+   * Waves reflect back to sensor
+   * Echo pin becomes HIGH and then LOW
+5. If no object is detected:
+
+   * Echo times out after **38 ms**
+   * Indicates no obstacle in range
+
+---
+
+## 🔁 **Echo Signal Behavior**
+
+| Condition       | Echo Output                 |
+| --------------- | --------------------------- |
+| Object detected | Pulse width 150 µs to 25 ms |
+| No object       | 38 ms timeout               |
+
+---
+
+## ⚙️ **Distance Formula**
+
+d = (t × 0.034) / 2
+
+Where:
+
+* d = distance in cm
+* t = time (microseconds converted to duration)
+* 0.034 = speed of sound in cm/µs
+* divide by 2 = forward + return travel
+
+---
+
+# 🔌 **Connections (Arduino + HC-SR04 + Devices)**
+
+## 📍 Ultrasonic Sensor
+
+| HC-SR04 Pin | Arduino Pin |
+| ----------- | ----------- |
+| VCC         | 5V          |
+| GND         | GND         |
+| TRIG        | Pin 11      |
+| ECHO        | Pin 12      |
+
+---
+
+## 📍 Additional Components
+
+| Component | Arduino Pin |
+| --------- | ----------- |
+| LED       | Pin 2       |
+| Buzzer    | Pin 4       |
+| Motor +   | Pin 3       |
+| Motor -   | Pin 6       |
+
+---
+
+# ⚙️ **Working Summary**
+
+* Arduino sends trigger pulse
+* Sensor emits ultrasonic waves
+* Waves reflect from object
+* Echo pulse width = distance
+* Arduino calculates distance using time
+
+---
+
+# ⚠️ **Important Notes**
+
+* Minimum range: ~2 cm
+* Maximum range: ~400 cm
+* Works on 5V supply
+* Echo pin gives 5V → safe for Arduino
+* Use stable mounting for accuracy
+
+---
+
