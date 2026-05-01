@@ -1,26 +1,70 @@
 # IIOT
 
-Top view of GPIO header on Raspberry Pi 4
+| NodeMCU Pin Label | GPIO Number | Used For |
+| ----------------- | ----------- | -------- |
+| D1                | GPIO5       | IN1      |
+| D2                | GPIO4       | IN2      |
+| D5                | GPIO14      | IN3      |
+| D6                | GPIO12      | IN4      |
 
-| Left (Odd Pins) | Pin | Pin | Right (Even Pins) |
-| --------------- | --- | --- | ----------------- |
-| 3.3V            | 1   | 2   | 5V                |
-| GPIO2 (SDA)     | 3   | 4   | 5V                |
-| GPIO3 (SCL)     | 5   | 6   | GND               |
-| GPIO4           | 7   | 8   | GPIO14 (TXD)      |
-| GND             | 9   | 10  | GPIO15 (RXD)      |
-| GPIO17          | 11  | 12  | GPIO18 (PWM)      |
-| GPIO27          | 13  | 14  | GND               |
-| GPIO22          | 15  | 16  | GPIO23            |
-| 3.3V            | 17  | 18  | GPIO24            |
-| GPIO10 (MOSI)   | 19  | 20  | GND               |
-| GPIO9 (MISO)    | 21  | 22  | GPIO25            |
-| GPIO11 (SCLK)   | 23  | 24  | GPIO8 (CE0)       |
-| GND             | 25  | 26  | GPIO7 (CE1)       |
-| GPIO0 (ID_SD)   | 27  | 28  | GPIO1 (ID_SC)     |
-| GPIO5           | 29  | 30  | GND               |
-| GPIO6           | 31  | 32  | GPIO12 (PWM)      |
-| GPIO13 (PWM)    | 33  | 34  | GND               |
-| GPIO19 (PWM)    | 35  | 36  | GPIO16            |
-| GPIO26          | 37  | 38  | GPIO20            |
-| GND             | 39  | 40  | GPIO21            |
+
+| ULN2003 Driver Pin | Connect To NodeMCU |
+| ------------------ | ------------------ |
+| IN1                | D1 (GPIO5)         |
+| IN2                | D2 (GPIO4)         |
+| IN3                | D5 (GPIO14)        |
+| IN4                | D6 (GPIO12)        |
+
+| ULN2003 Pin | Connect To                       |
+| ----------- | -------------------------------- |
+| VCC         | 5V (External supply recommended) |
+| GND         | GND (Common with NodeMCU)        |
+
+🔌 Stepper Motor
+The 28BYJ-48 motor plugs directly into the ULN2003 board
+No manual wiring needed between motor and driver ✔
+
+Here’s a clean, **practical-ready “Concept/Theory” section** for your experiment:
+
+---
+
+## **Concept / Theory**
+
+A **stepper motor** is a type of brushless DC motor that converts electrical pulses into **discrete mechanical movements (steps)**. Unlike conventional motors, it does not rotate continuously but moves in **precise angular increments**, making it ideal for applications requiring accurate position control.
+
+The **28BYJ-48 Stepper Motor** is a commonly used **unipolar stepper motor** that operates on low voltage (5V). It consists of multiple coils arranged in phases. When these coils are energized in a specific sequence, the motor shaft rotates step-by-step. The typical step angle of this motor is **5.625° per step**, combined with an internal gear reduction, resulting in high precision.
+
+Since the stepper motor requires more current than a microcontroller can provide, a driver circuit is used. The **ULN2003 Driver Board** acts as an interface between the motor and the microcontroller. It contains a set of Darlington transistor arrays that amplify the current, allowing safe control of the motor coils.
+
+The **ESP8266 NodeMCU** is a Wi-Fi-enabled microcontroller used to control the motor. It sends digital signals (HIGH/LOW) to the driver board pins. By generating a **step sequence** (e.g., full-step or half-step), the ESP8266 controls:
+
+* Direction of rotation (clockwise or anticlockwise)
+* Speed of rotation (by adjusting delay between steps)
+* Position of the motor shaft
+
+### **Working Principle**
+
+The rotation of the stepper motor is based on **electromagnetic induction**:
+
+1. Current flows through a coil → creates a magnetic field
+2. The rotor aligns with the energized coil
+3. Switching the current to the next coil → rotor moves to the next position
+4. Repeating this sequence → continuous step-by-step rotation
+
+A common **full-step sequence** is:
+
+* Step 1: Coil A energized
+* Step 2: Coil B energized
+* Step 3: Coil C energized
+* Step 4: Coil D energized
+
+By repeating this sequence, the motor completes one full revolution.
+
+### **Key Advantages**
+
+* Precise position control without feedback
+* Simple control using digital signals
+* Reliable and repeatable motion
+
+Thus, by interfacing the stepper motor with the ESP8266 via the ULN2003 driver, controlled rotational motion is achieved using programmed step sequences.
+
