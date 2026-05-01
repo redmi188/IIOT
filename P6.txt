@@ -1,0 +1,32 @@
+#include <ESP8266WiFi.h>   // Library for WiFi functionality in ESP8266
+
+// Replace with your WiFi credentials
+const char* ssid = "YOUR_WIFI_NAME";
+const char* password = "YOUR_WIFI_PASSWORD";
+
+void setup() {
+  // Start serial communication for debugging
+  Serial.begin(115200);
+
+  // Start WiFi connection
+  WiFi.begin(ssid, password);
+
+  Serial.print("Connecting to WiFi");
+
+  // Wait until WiFi is connected
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);              // Wait 0.5 seconds
+    Serial.print(".");       // Show progress
+  }
+
+  // When connected successfully
+  Serial.println("\nConnected to WiFi");
+
+  // Print assigned IP address
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {
+  // Empty loop (can be used for future IoT tasks)
+}
