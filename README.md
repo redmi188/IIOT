@@ -107,4 +107,9 @@ source venv/bin/activate
 
 pip install adafruit-circuitpython-dht
 pip install RPi.GPIO
+
+if eorors
+sudo python your_script.py
+sudo pip3 install adafruit-circuitpython-dht RPi.GPIO
+sudo apt install python3-dev build-essential
 ```
