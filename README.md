@@ -1,5 +1,51 @@
 # IIOT
 
+| DHT11 Pin | Connect To Arduino | Purpose      |
+| --------- | ------------------ | ------------ |
+| VCC       | 5V                 | Power supply |
+| GND       | GND                | Ground       |
+| DATA      | Digital Pin 2      | Data signal  |
+
+## ⚡ **Important Component**
+
+👉 Add **10kΩ pull-up resistor** between:
+
+* VCC ↔ DATA pin
+
+This stabilizes sensor communication.
+
+---
+
+
+
+# ⚙️ **Working Explanation (Simple)**
+
+1. Arduino sends request to DHT11
+2. Sensor reads environment:
+
+   * Humidity
+   * Temperature
+3. Sensor sends digital data back
+4. Arduino reads values
+5. Data is sent via Serial as:
+
+   ```
+   humidity,temperature
+   ```
+
+Example output:
+
+```
+65.0,28.5
+```
+
+---
+
+# 📡 **Why comma ( , ) is used?**
+
+* Helps split data in Node-RED or Python
+* Left side = humidity
+* Right side = temperature
 
 ---
 
