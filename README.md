@@ -214,14 +214,12 @@ Add **Function nodes (2)**:
 ## 🌡️ Temperature Function Code
 
 ```javascript
-var temp1 = msg.payload[6];
-var temp2 = msg.payload[7];
-var temp3 = msg.payload[9];
-var temp4 = msg.payload[10];
+var data = msg.payload.split(",");
 
-var result = (temp1*10) + (temp2*1) + (temp3*0.1) + (temp4*0.01);
+// Extract temperature (2nd value)
+var temperature = parseFloat(data[1]);
 
-msg.payload = result;
+msg.payload = temperature;
 return msg;
 ```
 
@@ -230,14 +228,12 @@ return msg;
 ## 💧 Humidity Function Code
 
 ```javascript
-var hum1 = msg.payload[0];
-var hum2 = msg.payload[1];
-var hum3 = msg.payload[3];
-var hum4 = msg.payload[4];
+var data = msg.payload.split(",");
 
-var result = (hum1*10) + (hum2*1) + (hum3*0.1) + (hum4*0.01);
+// Extract humidity (1st value)
+var humidity = parseFloat(data[0]);
 
-msg.payload = result;
+msg.payload = humidity;
 return msg;
 ```
 
