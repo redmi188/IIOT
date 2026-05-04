@@ -1,0 +1,63 @@
+int trigPin = 11;   // Sends ultrasonic pulse
+int echoPin = 12;   // Receives reflected pulse
+
+int led = 2;        // LED output
+int buzz = 4;       // Buzzer output
+
+int motorp = 3;     // Motor positive terminal
+int motorn = 6;     // Motor negative terminal
+
+long duration, cm, inches;  // Variables for time and distance
+
+void setup() {
+  Serial.begin(9600);  // Start serial monitor
+
+  // Set pin modes
+  pinMode(trigPin, OUTPUT);  
+  pinMode(echoPin, INPUT);
+
+  pinMode(buzz, OUTPUT);
+  pinMode(led, OUTPUT);
+
+  pinMode(motorp, OUTPUT);
+  pinMode(motorn, OUTPUT);
+}
+
+void loop() {
+
+  // Ensure clean LOW signal before triggering
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(5);
+
+  // Send 10 microsecond pulse to trigger sensor
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Measure echo pulse duration
+  duration = pulseIn(echoPin, HIGH);
+
+  // Convert time into distance (cm)
+  cm = (duration / 2) * 0.034;
+
+  // Print distance on serial monitor
+  Serial.print("Distance = ");
+  Serial.print(cm);
+  Serial.println(" cm");
+
+  // Example logic (optional control system)
+  if (cm < 20) {
+    digitalWrite(led, HIGH);    // Turn ON LED
+    digitalWrite(buzz, HIGH);   // Turn ON buzzer
+    digitalWrite(motorp, HIGH); // Motor ON
+    digitalWrite(motorn, LOW);
+  }
+  else {
+    digitalWrite(led, LOW);
+    digitalWrite(buzz, LOW);
+    digitalWrite(motorp, LOW);
+    digitalWrite(motorn, LOW);
+  }
+
+  delay(500);
+}
