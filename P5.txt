@@ -1,0 +1,36 @@
+#include <Stepper.h>   // Include Stepper motor library
+
+// Define number of steps per revolution
+// (28BYJ-48 stepper motor typically has 2048 steps/rev)
+const int stepsPerRevolution = 2048;
+
+// Create Stepper object
+// Pins connected to motor driver (ULN2003)
+// D1, D2, D5, D6 are GPIO pins (NodeMCU)
+Stepper myStepper(stepsPerRevolution, D1, D2, D5, D6);
+
+void setup() {
+  // Start serial communication (for debugging/output)
+  Serial.begin(115200);
+
+  // Set motor speed (in RPM)
+  myStepper.setSpeed(10);
+
+  Serial.println("Stepper Motor Ready");
+}
+
+void loop() {
+  // Rotate motor clockwise
+  Serial.println("Clockwise rotation");
+  myStepper.step(stepsPerRevolution);  
+  // Moves 2048 steps → 1 full rotation
+
+  delay(2000);  // Wait for 2 seconds
+
+  // Rotate motor anti-clockwise
+  Serial.println("Anti-clockwise rotation");
+  myStepper.step(-stepsPerRevolution);  
+  // Negative value → reverse direction
+
+  delay(2000);  // Wait for 2 seconds
+}
